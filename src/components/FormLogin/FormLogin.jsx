@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ContainerLogin } from './styles';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import logo from "../../assets/images/foodexplorer.svg";
 
 function FormLogin({ goRegister }) {
   const [emailLogin, setEmailLogin] = useState('');
@@ -53,7 +54,7 @@ function FormLogin({ goRegister }) {
       <div className="logincontainer">
         <div className="title">
          
-          <h1> <img src="./src/assets/images/foodexplorer.svg" /> food explorer</h1>
+          <h1> <img src={logo} /> food explorer</h1>
         </div>
 
         <div className="login">
