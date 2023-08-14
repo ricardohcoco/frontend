@@ -7,6 +7,8 @@ function FormLogin({ goRegister }) {
   const [emailLogin, setEmailLogin] = useState('');
   const [passwordLogin, setPasswordLogin] = useState('');
   const navigate = useNavigate();
+  const [loginValidate, setLoginValidate] = useState(false);
+  const [messageLogin, setMessageLogin] = useState('')
 
   const handleChangeEmail = (e) => {
     setEmailLogin(e.target.value);
@@ -40,6 +42,8 @@ function FormLogin({ goRegister }) {
       }
     } catch (error) {
       console.log(error);
+      setLoginValidate(true);
+      setMessageLogin("Email ou senha incorretos");
     }
   };
 
@@ -48,7 +52,8 @@ function FormLogin({ goRegister }) {
     <ContainerLogin>
       <div className="logincontainer">
         <div className="title">
-          <h1>food explorer</h1>
+         
+          <h1> <img src="./src/assets/images/foodexplorer.svg" /> food explorer</h1>
         </div>
 
         <div className="login">
@@ -76,6 +81,8 @@ function FormLogin({ goRegister }) {
               <button className="botaoconta" type="submit" onClick={goRegister}>
                 Criar uma Conta
               </button>
+
+              {loginValidate ? <p>{messageLogin}</p>:''} 
             
           </form>
         </div>

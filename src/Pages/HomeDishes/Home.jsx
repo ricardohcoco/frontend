@@ -9,77 +9,74 @@ import { ContainerHomePage } from './styles';
 import "./styles.css";
 
 function Home({ admin }) {
-  const [dataDishes, setDataDishes] = useState(['']);
+  const [dataDishes, setDataDishes] = useState([]);
   const [valueSearch, setValueSearch] = useState('');
   const navigate = useNavigate();
+  const [resultMeal, setResultMeal] = useState([]);
+  const [resultBebidas, setResultBebidas] = useState([]);  
+  const [resultDessert, setResultDessert] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [dataDishesFilter, setDataDishesFilter] = useState([]);
 
   const fetchApi = async () => {
-    const { data } = await axios.get('https://backend-9jof.onrender.com/dishes/');
-    setDataDishes(data);
-    return data;
+    try {
+      const { data } = await axios.get('https://backend-9jof.onrender.com/dishes/');
+      setDataDishes(data);
+      setLoading(true);
+    } catch (error) {
+      console.error("Erro ao carregar os pratos: ", error);
+    }
   };
 
   useEffect(() => {
     fetchApi();
   }, []);
 
+  useEffect(() => {
+    setDataDishesFilter(dataDishes);
+  }, [dataDishes]);
+
+  useEffect(() => {
+    searchDrink();
+    searchDessert();
+    searchMeal();
+  }, [dataDishesFilter]);
+
   const onChangeTarget = ({ target }) => {
     setValueSearch(target.value);
-  };
 
-  const teste = (valueSearch) => {
-    if (valueSearch === '') {
-      return dataDishes;
+    if (target.value === '') {
+      setDataDishesFilter(dataDishes);
+    } else {
+      const result = dataDishes.filter(
+        (e) =>
+          e.name.toLowerCase().includes(target.value.toLowerCase()) ||
+          e.ingredients.toLowerCase().includes(target.value.toLowerCase())
+      );
+      setDataDishesFilter(result);
     }
-
-    const result = dataDishes.filter(
-      (e) =>
-        e.name.toLowerCase().includes(valueSearch.toLowerCase()) ||
-        e.ingredients.toLowerCase().includes(valueSearch.toLowerCase())
-    );
-    console.log(result);
-    return result;
   };
-
-  const result = teste(valueSearch);
 
   const searchDrink = () => {
-    try {
-      const resultbebidas = dataDishes.filter(
-        (e) => e.category.toLowerCase() === 'bebidas'
-      );
-      return resultbebidas;
-    } catch (error) {
-      return '';
-    }
+    const resultbebidas = dataDishesFilter.filter(
+      (e) => e.category.toLowerCase() === 'bebidas'
+    );
+    setResultBebidas(resultbebidas);
   };
 
   const searchDessert = () => {
-    try {
-      const resultbebidas = dataDishes.filter(
-        (e) => e.category.toLowerCase() === 'sobremesas'
-      );
-      return resultbebidas;
-    } catch (error) {
-      return '';
-    }
+    const resultdessert = dataDishesFilter.filter(
+      (e) => e.category.toLowerCase() === 'sobremesas'
+    );
+    setResultDessert(resultdessert);
   };
 
   const searchMeal = () => {
-    try {
-      const resultbebidas = dataDishes.filter(
-        (e) => e.category.toLowerCase() === 'refeições'
-      );
-      return resultbebidas;
-    } catch (error) {
-      return '';
-    }
+    const resultcomidas = dataDishesFilter.filter(
+      (e) => e.category.toLowerCase() === 'refeições'
+    );
+    setResultMeal(resultcomidas);
   };
-
-  const resultMeal = searchMeal();
-  const resultDessert = searchDessert();
-
-  const resultbebidas = searchDrink();
 
   const newDishe = (e) => {
     e.preventDefault();
@@ -93,10 +90,15 @@ function Home({ admin }) {
 
   return (
     <div>
-      <ContainerHeader>
+      
+      {loading && (
+        <>
+        <ContainerHeader>
         <header className="header-container">
-          <h2>food explorer</h2>
-
+          <div className="header-title">
+            <img src="./src/assets/images/foodexplorer.svg" />
+            <h3>food explorer</h3>
+          </div>
           <input
             value={valueSearch}
             onChange={onChangeTarget}
@@ -129,40 +131,27 @@ function Home({ admin }) {
           </div>
         </div>
         </ContainerHomePage>
-
-      {dataDishes.length === 0 ? (
         <div>
-          <h1>Nenhum prato cadastrado</h1>
-        </div>
-      ) : (
-      
-        <div>
-          <h1 className="title">Todas</h1>
-          <CardsDishes dishes={result} />
-        </div>
+            <h1 className="title">Refeições</h1>
+            <CardsDishes dishes={resultMeal} />
+          </div>
         
-      )}
+  
       
-      {
-        <div>
-          <h1 className="title">Refeições</h1>
-          <CardsDishes dishes={resultMeal} />
-        </div>
-      }
-
-      {
-        <div>
-          <h1 className="title">Bebidas</h1>
-          <CardsDishes dishes={resultbebidas} />
-        </div>
-      }
-
-      {
-        <div>
-          <h1 className="title">Sobremesas</h1>
-          <CardsDishes dishes={resultDessert} />
-        </div>
-      
+          <div>
+            <h1 className="title">Bebidas</h1>
+            <CardsDishes dishes={resultBebidas} />
+          </div>
+        
+  
+        
+          <div>
+            <h1 className="title">Sobremesas</h1>
+            <CardsDishes dishes={resultDessert} />
+          </div>
+        </>
+          
+      )
       }
       
       <Footer />

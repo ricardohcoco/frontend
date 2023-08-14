@@ -68,8 +68,6 @@ export const ContainerHomePage = styled.div`
       display: none;
     }
   }
-
-  @media screen and (max-width: 425px)  {
     .create {
       margin: 0;
       width: 350px;
@@ -89,7 +87,7 @@ export const ContainerHomePage = styled.div`
       width: 250px;
     }
     
-  }
+  
 
 
 

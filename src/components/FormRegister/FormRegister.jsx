@@ -39,7 +39,7 @@ function FormRegister({ goLogin }) {
     <ContainerFormLogin>
       <div className="formlogincontainer">
         <div className="title">
-          <h1>food explorer</h1>
+          <h1> <img src="./src/assets/images/foodexplorer.svg" /> food explorer</h1>
         </div>
 
         <div className="create">

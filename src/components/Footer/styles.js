@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const ContainerFooter  = styled.footer`
-  .container-footer {
+  .global-footer {
     font-family: 'Roboto', sans-serif;
     height: 70px;
     width: 100%;
@@ -12,4 +12,13 @@ export const ContainerFooter  = styled.footer`
     padding: 0 80px;
     color: ${({theme}) => theme.COLORS.WHITE};
   }
+
+  .container-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+  }
+
+
 `;

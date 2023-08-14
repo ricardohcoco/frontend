@@ -4,3 +4,9 @@
   font-family: 'poppins', sans-serif;
   font-weight: 400;
 } 
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}

@@ -66,8 +66,14 @@ export const ContainerLogin = styled.div`
   }
 
   @media screen and (max-width: 768px) {
+    .logincontainer {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+  }
+
     .title {
-      display: none;
+      font-size: 24px;
     }
   }
 

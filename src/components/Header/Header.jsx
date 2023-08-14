@@ -1,16 +1,19 @@
+import { useNavigate } from "react-router-dom";
 import { ContainerHeader } from "./styles";
 
-export function HeaderComponent({dataDishes}) {
+export function HeaderComponent() {
+  const navigate = useNavigate();
+
+  const exit = (e) => {
+  e.preventDefault();
+  navigate(-2);
+};
   return (
     <ContainerHeader>
       
       <div className="header-container">
-        <h2>food explorer</h2>
-      
-          <input type="text" placeholder="Busque por pratos ou ingredientes" />
-
-        <button className="newdishe" type="submit">Novo prato</button>
-        <button className="botaodesair" type="submit">Sair</button>
+        <h3> food explorer</h3>
+        <button className="botaodesair" onClick={exit} type="submit"> Sair </button>
       </div>  
       
     </ContainerHeader>

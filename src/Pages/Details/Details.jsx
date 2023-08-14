@@ -5,6 +5,7 @@ import Home from "../HomeDishes/Home"
 import { Container} from './styles'
 import AddDishesPage from "../AddDishes/AddDishes"
 import AddDishes from "../../components/AddDishes/AddDishes"
+import DishesDetails from "../DishesDetails/DishesDetails"
 
 function Details() {
   
@@ -17,6 +18,7 @@ function Details() {
           <Route path="/home" element={<Home />} />
           <Route path="/add-dishes" element={<AddDishesPage />} />
           <Route path="/add-dishes-post" element={<AddDishes />} />
+          <Route path="/dishes-details/:id" element={<DishesDetails />} />
         </Routes>
       </BrowserRouter>
     </Container>
